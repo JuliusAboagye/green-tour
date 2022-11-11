@@ -1,0 +1,19 @@
+{
+  "name": "green_tours",
+  "version": "1.0.0",
+  "description": "An app for nature tour",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuliusAboagye/green-tour.git"
+  },
+  "author": "Julius Aboagye",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JuliusAboagye/green-tour/issues"
+  },
+  "homepage": "https://github.com/JuliusAboagye/green-tour#readme"
+}
