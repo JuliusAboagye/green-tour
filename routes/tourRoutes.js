@@ -3,6 +3,10 @@ const tourController = require('../controllers/tourController');
 const router = expess.Router();
 
 router
+  .route('/top-5-cheap')
+  .get(tourController.aliasTopTours, tourController.getAllTours);
+
+router
   .route('/')
   .post(tourController.createTour)
   .get(tourController.getAllTours);
