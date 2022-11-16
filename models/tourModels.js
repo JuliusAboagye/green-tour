@@ -35,6 +35,7 @@ const tourSchema = new mongoose.Schema(
       trim: true,
       required: [true, 'A tour must have a summary'],
     },
+    secreteTour: { type: Boolean, default: false },
     description: { type: String, trim: true },
     imageCover: {
       type: String,
@@ -47,6 +48,15 @@ const tourSchema = new mongoose.Schema(
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
+tourSchema.pre(/^find/, function (next) {
+  this.find({ secreteTour: { $ne: true } });
+  next();
+});
+
+tourSchema.pre('aggregate', function (next) {
+  this.pipeline().unshift({ $match: { secreteTour: { $ne: true } } });
+  next();
+});
 tourSchema.virtual('durationWeeks').get(function () {
   return this.duration / 7;
 });
