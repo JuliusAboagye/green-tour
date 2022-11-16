@@ -81,12 +81,13 @@ exports.getTourStats = async (req, res) => {
           minPrice: { $min: '$price' },
           maxPrice: { $max: '$price' },
         },
-        sort: { avgPrice: 1 },
       },
+      { $sort: { avgPrice: 1 } },
     ]);
 
     res.status(200).json({ status: 'success', data: stats });
   } catch (error) {
+    console.log(error);
     res.status(400).json({ status: 'failed', message: error });
   }
 };
