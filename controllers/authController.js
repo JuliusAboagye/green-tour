@@ -31,7 +31,6 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!user) return next(new AppError('Invalid email or password', 400));
 
   const correct = await user.correctPassword(password, user.password);
-
   if (!user || !correct)
     return next(new AppError('Invalid username or password', 401));
 
@@ -68,3 +67,16 @@ exports.protect = catchAsync(async (req, res, next) => {
   req.user = freshUser;
   next();
 });
+
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role))
+      return next(
+        new AppError(
+          'You do not have permission to perform this operation.',
+          403
+        )
+      );
+    next();
+  };
+};
