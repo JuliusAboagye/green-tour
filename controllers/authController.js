@@ -143,3 +143,5 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   const token = signToken(user._id);
   res.status(200).json({ status: 'success', token });
 });
+
+module.exports.updatePassword = (req, res, next) => {};
