@@ -18,6 +18,7 @@ const createSendtoken = (user, statusCode, res) => {
     .status(statusCode)
     .json({ status: 'success', token, data: { user: user } });
 };
+
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
     name: req.body.name,
@@ -40,7 +41,6 @@ exports.login = catchAsync(async (req, res, next) => {
   const correct = await user.correctPassword(password, user.password);
   if (!user || !correct)
     return next(new AppError('Invalid username or password', 401));
-
   createSendtoken(user, 200, res);
 });
 
