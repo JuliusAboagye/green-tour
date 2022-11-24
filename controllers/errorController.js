@@ -52,13 +52,12 @@ module.exports = (error, req, res, next) => {
   if (process.env.NODE_ENV == 'development') {
     sendErrorDev(error, res);
   } else if (process.env.NODE_ENV == 'production') {
-    let err = { ...error };
-    if (error.name === 'CastError') err = handleCastError(err);
-    if (error.code === 11000) err = handleDuplicateFields(err);
-    if (error.name === 'ValidationError') err = handleValidationErrorDB(err);
+    if (error.name === 'CastError') err = handleCastError(error);
+    if (error.code === 11000) err = handleDuplicateFields(error);
+    if (error.name === 'ValidationError') err = handleValidationErrorDB(error);
     if (error.name === 'JsonWebTokenError') err = handleJWTError();
     if (error.name === 'TokenExpiredError') err = handleJWTExpiredError();
 
-    sendErrorProd(err, res);
+    sendErrorProd(error, res);
   }
 };
