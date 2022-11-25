@@ -13,7 +13,7 @@ app.use('/api/v1/users', userRoute);
 app.use('/api/v1/tours', tourRoute);
 
 app.all('*', (req, res, next) => {
-  next(new AppError(`Can't find ${req.originalUrl}`, 404));
+  next(new AppError(`Can't find ${req.method} ${req.originalUrl}`, 404));
 });
 
 app.use(globalErrorHandler);
