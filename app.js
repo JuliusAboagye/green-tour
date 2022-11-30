@@ -8,6 +8,7 @@ const app = express();
 const morgan = require('morgan');
 const tourRoute = require('./routes/tourRoutes');
 const userRoute = require('./routes/userRoutes');
+const reviewRoute = require('./routes/reviewRoutes');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 
@@ -26,6 +27,7 @@ app.use(mongoSanitize());
 app.use(xss());
 app.use('/api/v1/users', userRoute);
 app.use('/api/v1/tours', tourRoute);
+app.use('/api/v1/reviews', reviewRoute);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.method} ${req.originalUrl}`, 404));
