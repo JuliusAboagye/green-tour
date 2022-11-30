@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const tourSchema = new mongoose.Schema(
   {
     name: {
@@ -44,12 +45,33 @@ const tourSchema = new mongoose.Schema(
     images: [String],
     createdAt: { type: Date, default: Date.now(), select: false },
     startDates: [Date],
+    startLocation: {
+      type: { type: String, default: 'Point', enum: ['Point'] },
+      coordinates: [Number],
+      address: String,
+      description: String,
+    },
+    locations: [
+      {
+        type: { type: String, default: 'Point', enum: ['Point'] },
+        coordinates: [Number],
+        address: String,
+        description: String,
+        day: Number,
+      },
+    ],
+    guides: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
 tourSchema.pre(/^find/, function (next) {
   this.find({ secreteTour: { $ne: true } });
+  next();
+});
+
+tourSchema.pre(/^find/, function (next) {
+  this.populate({ path: 'guides', select: '-__v -passwordChangedAt' });
   next();
 });
 
