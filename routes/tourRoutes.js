@@ -1,7 +1,6 @@
 const expess = require('express');
 const authController = require('../controllers/authController');
 const tourController = require('../controllers/tourController');
-const reviewController = require('../controllers/reviewController');
 const reviewRouter = require('./reviewRoutes');
 const router = expess.Router();
 
