@@ -21,6 +21,7 @@ router.patch(
 router.route('/').get(userController.getAllUsers);
 router
   .route('/:id')
+  .patch(userController.updateUser)
   .delete(
     authController.protect,
     authController.restrictTo('admin'),

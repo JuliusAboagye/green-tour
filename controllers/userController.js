@@ -44,5 +44,5 @@ exports.deleteMe = catchAsync(async (req, res) => {
   const user = await User.findByIdAndUpdate(req.user._id, { active: false });
   res.status(204).json({ status: 'success', data: null });
 });
-
+exports.updateUser = factory.updateOne(User);
 exports.deleteUser = factory.deleteOne(User);
