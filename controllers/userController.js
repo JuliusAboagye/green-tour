@@ -13,13 +13,6 @@ const filterObj = (obj, ...allowedFields) => {
   return newObj;
 };
 
-exports.getAllUsers = catchAsync(async (req, res, next) => {
-  const users = await User.find();
-  res
-    .status(200)
-    .json({ status: 'success', results: users.length, data: users });
-});
-
 exports.updateMe = catchAsync(async (req, res, next) => {
   if (req.body.passsword || req.body.passwordConfirm) {
     return next(
@@ -44,5 +37,7 @@ exports.deleteMe = catchAsync(async (req, res) => {
   const user = await User.findByIdAndUpdate(req.user._id, { active: false });
   res.status(204).json({ status: 'success', data: null });
 });
+exports.getAllUsers = factory.getAll(User);
+exports.getUser = factory.getOne(User);
 exports.updateUser = factory.updateOne(User);
 exports.deleteUser = factory.deleteOne(User);
